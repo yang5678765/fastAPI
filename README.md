@@ -1,5 +1,8 @@
 **Docker on windows**
 ----
+* **Install docker on windows**
+
+    https://docs.docker.com/desktop/install/windows-install/
 * **Get image**
 
     build by docker file: 
