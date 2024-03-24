@@ -42,8 +42,13 @@ def create_account(account: Account, response: Response, db: Session = Depends(g
             result['reason'] = 'Passord should contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.'
             response.status_code = status.HTTP_400_BAD_REQUEST
         else:
-            result['success'], result['reason'] = new_account(db, account)
-            response.status_code = status.HTTP_201_CREATED
+            state, result['reason'] = new_account(db, account)
+            if state==1:
+                response.status_code = status.HTTP_201_CREATED
+            elif state==2:
+                response.status_code = status.HTTP_400_BAD_REQUEST
+            else:
+                response.status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
     except Exception as e:
         result['reason'] = 'Some error occurred during creating account.'
         response.status_code = status.HTTP_422_UNPROCESSABLE_ENTITY

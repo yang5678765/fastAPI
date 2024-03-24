@@ -15,11 +15,11 @@ def new_account(db: Session, account: Account):
             db.add(user)
             db.commit()
             db.refresh(user)
-            return True, ''
+            return 1, ''
         else:
-            return False, 'Username already exists.'
+            return 2, 'Username already exists.'
     except Exception as e:
-        return False, str(e)
+        return 0, 'Some error occurred during creating account.'
 
 
 def check_account(db: Session, account: Account):
@@ -44,4 +44,4 @@ def check_account(db: Session, account: Account):
         else:
             return 0, 'Username is not exist.'
     except Exception as e:
-        return 0, str(e)
+        return 0, 'Some error occurred during verifying account.'
